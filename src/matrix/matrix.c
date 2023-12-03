@@ -64,8 +64,8 @@ int is_square_matrix(Matrix* matrix) {
 
 void identity_matrix(Matrix* matrix) {
     if (!is_square_matrix(matrix)) {
-        fprintf(stderr, "Cannot create identity matrix for non-square matrix\n");
-        return;
+        fprintf(stderr, "ERROR: Cannot create identity matrix for non-square matrix of size (%d, %d)\n", matrix->rows, matrix->cols);
+        exit(EXIT_FAILURE);
     }
 
     assert(is_square_matrix(matrix));
@@ -105,8 +105,8 @@ Matrix* load_matrix(const char* filename) {
 
 Matrix *flatten(Matrix *matrix, int axis) {
     if (axis != 0 && axis != 1) {
-        fprintf(stderr, "Invalid axis\n");
-        return NULL;
+        fprintf(stderr, "ERROR: Invalid axis: %d\n", axis);
+        exit(EXIT_FAILURE);
     }
 
     assert(axis == 0 || axis == 1);
@@ -130,18 +130,44 @@ Matrix *flatten(Matrix *matrix, int axis) {
     return flat;
 }
 
+Matrix* reshape(Matrix *matrix, int rows, int cols) {
+    
+    if (rows * cols != matrix->rows * matrix->cols) {
+        fprintf(stderr, "ERROR: Invalid reshape dimensions (%d, %d) for matrix of size (%d, %d)\n", rows, cols, matrix->rows, matrix->cols);
+        exit(EXIT_FAILURE);
+    }
+
+    assert(rows * cols == matrix->rows * matrix->cols);
+
+    Matrix *flat = flatten(matrix, 0);
+    Matrix* m = create_matrix(rows, cols);
+
+    int k = 0;
+    for (int i=0; i<rows; i++) {
+        for (int j=0; j<cols; j++) {
+            m->data[i][j] = flat->data[0][k++];
+        }
+    }
+
+    free_matrix(flat);
+
+    return m;
+}
+
 double random_uniform(double min, double max) {
     return (double)rand() / RAND_MAX * (max - min) + min;
 }
 
 void initialize_weights(Matrix* matrix, int activation, int n, ...) {
     if (n <= 0) {
-        fprintf(stderr, "ERROR: Invalid size specified for (n)\n");
+        fprintf(stderr, "ERROR: Invalid size specified for (n=%d)\n",n);
         exit(EXIT_FAILURE);
     }
     assert(n > 0);
+
     va_list args;
     va_start(args, n);
+    
     double min, max;
     if (activation == RELU) {
         min = -sqrt(2.0 / n);
@@ -149,8 +175,8 @@ void initialize_weights(Matrix* matrix, int activation, int n, ...) {
 
     } else if (activation == SIGMOID) {
         int m = va_arg(args, int);
-        if (m <= 0 || m == NULL) {
-            fprintf(stderr, "ERROR: Invalid size specified for (m)\n");
+        if (m <= 0) {
+            fprintf(stderr, "ERROR: Invalid size specified for (m=%d)\n",m);
             exit(EXIT_FAILURE);
         }
         assert(m > 0);
