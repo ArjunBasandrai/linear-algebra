@@ -4,7 +4,7 @@
 
 int main() {
     Matrix *m = create_matrix(5, 5);
-    initialize_weights(m, TANH, 2, 223);
+    initialize_weights(m, RELU, 2);
     print_matrix(m);
     free_matrix(m);
     return 0;
