@@ -7,15 +7,22 @@
 
 int main() {
     Matrix *m = create_matrix(3, 3);
-
-    fill_matrix(m, log(1));
-    mexp(m);
+    Matrix *ms = create_matrix(3, 3);
+    fill_matrix(m,10);
+    fill_matrix(ms, 20);
     print_matrix(m);
-
-    fill_matrix(m, 9);
-    mlog_base(m,3);
-    print_matrix(m);
-
+    printf("\n");
+    print_matrix(ms);
+    printf("\n");
+    print_matrix(add(m, ms));
+    printf("\n");
+    print_matrix(subtract(m, ms));
+    printf("\n");
+    print_matrix(multiply(m, ms));
+    printf("\n");
+    print_matrix(divide(m, ms));
+    printf("\n");
     free_matrix(m);
+    free_matrix(ms);
     return 0;
 }

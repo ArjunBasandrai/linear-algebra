@@ -2,6 +2,7 @@
 #include "defs.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 #include <math.h>
 
@@ -64,3 +65,86 @@ void mexp(Matrix* matrix) {
     }
 }
 
+Matrix* transpose(Matrix *m) {
+    Matrix *new = create_matrix(m->cols, m->rows);
+    for (int i = 0; i < m->rows; i++) {
+        for (int j = 0; j < m->cols; j++) {
+            new->data[j][i] = m->data[i][j];
+        }
+    }
+    return new;
+}
+
+Matrix* add(Matrix* m1, Matrix* m2) {
+    if (m1->rows != m2->rows || m1->cols != m2->cols) {
+        fprintf(stderr, "ERROR: Cannot add matrices of different sizes (%d, %d) and (%d, %d)\n", m1->rows, m1->cols, m2->rows, m2->cols);
+        exit(EXIT_FAILURE);
+    }
+
+    assert(m1->rows == m2->rows && m1->cols == m2->cols);
+
+    Matrix* sum = create_matrix(m1->rows, m1->cols);
+    for (int i=0; i<m1->rows; i++) {
+        for (int j=0; j<m1->cols; j++) {
+            sum->data[i][j] = m1->data[i][j] + m2->data[i][j];
+        }
+    }
+    return sum;
+}
+
+Matrix* subtract(Matrix* m1, Matrix* m2) {
+    if (m1->rows != m2->rows || m1->cols != m2->cols) {
+        fprintf(stderr, "ERROR: Cannot subtract matrices of different sizes (%d, %d) and (%d, %d)\n", m1->rows, m1->cols, m2->rows, m2->cols);
+        exit(EXIT_FAILURE);
+    }
+
+    assert(m1->rows == m2->rows && m1->cols == m2->cols);
+
+    Matrix* diff = create_matrix(m1->rows, m1->cols);
+    for (int i=0; i<m1->rows; i++) {
+        for (int j=0; j<m1->cols; j++) {
+            diff->data[i][j] = m1->data[i][j] - m2->data[i][j];
+        }
+    }
+    return diff;
+}
+
+Matrix* multiply(Matrix* m1, Matrix* m2) {
+    if (m1->cols != m2->rows) {
+        fprintf(stderr, "ERROR: Cannot multiply matrices of sizes (%d, %d) and (%d, %d)\n", m1->rows, m1->cols, m2->rows, m2->cols);
+        exit(EXIT_FAILURE);
+    }
+
+    assert(m1->cols == m2->rows);
+
+    Matrix* product = create_matrix(m1->rows, m2->cols);
+    for (int i=0; i<m1->rows; i++) {
+        for (int j=0; j<m2->cols; j++) {
+            for (int k=0; k<m1->cols; k++) {
+                product->data[i][j] = m1->data[i][k] * m2->data[k][j];
+            }
+        }
+    }
+    return product;
+}
+
+Matrix* divide(Matrix* m1, Matrix* m2) {
+    if (m1->rows != m2->rows || m1->cols != m2->cols) {
+        fprintf(stderr, "ERROR: Cannot divide matrices of different sizes (%d, %d) and (%d, %d)\n", m1->rows, m1->cols, m2->rows, m2->cols);
+        exit(EXIT_FAILURE);
+    }
+
+    assert(m1->rows == m2->rows && m1->cols == m2->cols);
+
+    Matrix* quotient = create_matrix(m1->rows, m1->cols);
+    for (int i=0; i<m1->rows; i++) {
+        for (int j=0; j<m1->cols; j++) {
+            if (m2->data[i][j] == 0) {
+                fprintf(stderr, "ERROR: Cannot divide by zero\n");
+                exit(EXIT_FAILURE);
+            }
+            quotient->data[i][j] = m1->data[i][j] / m2->data[i][j];
+        }
+    }
+    return quotient;
+}
