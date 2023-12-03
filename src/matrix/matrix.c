@@ -156,6 +156,7 @@ Matrix* reshape(Matrix *matrix, int rows, int cols) {
 }
 
 double random_uniform(double min, double max) {
+    assert(min < max);
     return (double)rand() / RAND_MAX * (max - min) + min;
 }
 
