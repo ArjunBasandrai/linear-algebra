@@ -7,6 +7,7 @@
 #include <stdarg.h>
 
 #include "matrix.h"
+#include "defs.h"
 
 Matrix *create_matrix(int rows, int cols) {
     Matrix *matrix = (Matrix *) malloc(sizeof(Matrix));

@@ -1,19 +1,6 @@
 #pragma once 
 
-typedef struct {
-    int rows;
-    int cols;
-    double **data;
-} Matrix;
-
-enum activation {
-    SIGMOID,
-    RELU,
-    TANH,
-    SOFTMAX,
-    LINEAR,
-    NONE
-};
+#include "defs.h"
 
 Matrix *create_matrix(int rows, int cols);
 void free_matrix(Matrix *m);
