@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <math.h>
+#include <stdarg.h>
 
 #include "matrix.h"
 
@@ -62,7 +64,7 @@ int is_square_matrix(Matrix* matrix) {
 
 void identity_matrix(Matrix* matrix) {
     if (!is_square_matrix(matrix)) {
-        printf("Cannot create identity matrix for non-square matrix\n");
+        fprintf(stderr, "Cannot create identity matrix for non-square matrix\n");
         return;
     }
 
@@ -103,7 +105,7 @@ Matrix* load_matrix(const char* filename) {
 
 Matrix *flatten(Matrix *matrix, int axis) {
     if (axis != 0 && axis != 1) {
-        printf("Invalid axis\n");
+        fprintf(stderr, "Invalid axis\n");
         return NULL;
     }
 
@@ -126,4 +128,46 @@ Matrix *flatten(Matrix *matrix, int axis) {
         }
     }
     return flat;
+}
+
+double random_uniform(double min, double max) {
+    return (double)rand() / RAND_MAX * (max - min) + min;
+}
+
+void initialize_weights(Matrix* matrix, int activation, int n, ...) {
+    if (n <= 0) {
+        fprintf(stderr, "ERROR: Invalid size specified for (n)\n");
+        exit(EXIT_FAILURE);
+    }
+    assert(n > 0);
+    va_list args;
+    va_start(args, n);
+    double min, max;
+    if (activation == RELU) {
+        min = -sqrt(2.0 / n);
+        max = sqrt(2.0 / n);
+
+    } else if (activation == SIGMOID) {
+        int m = va_arg(args, int);
+        if (m <= 0 || m == NULL) {
+            fprintf(stderr, "ERROR: Invalid size specified for (m)\n");
+            exit(EXIT_FAILURE);
+        }
+        assert(m > 0);
+
+        min = -sqrt(6.0 / (n + m));
+        max = sqrt(6.0 / (n + m));
+
+    } else {
+        min = -1.0 / sqrt(n);
+        max = 1.0 / sqrt(n);
+    }
+
+    va_end(args);
+
+    for (int i=0; i<matrix->rows; i++) {
+        for (int j=0; j<matrix->cols; j++) {
+            matrix->data[i][j] = random_uniform(min, max);
+        }
+    }
 }

@@ -3,11 +3,9 @@
 #include "src/matrix/matrix.h"
 
 int main() {
-    Matrix *m = create_matrix(2, 2);
-    fill_matrix(m, 1);
-
-    print_matrix(flatten(m, 1));
-
+    Matrix *m = create_matrix(5, 5);
+    initialize_weights(m, TANH, 2, 223);
+    print_matrix(m);
     free_matrix(m);
     return 0;
 }
