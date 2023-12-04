@@ -6,22 +6,13 @@
 #include "src/matrix/operations.h"
 
 int main() {
-    Matrix *m = create_matrix(3, 3);
-    Matrix *ms = create_matrix(3, 3);
-    fill_matrix(m,10);
-    fill_matrix(ms, 20);
+    Matrix *m = create_matrix(1, 2);
+    Matrix *ms = create_matrix(2, 3);
+    fill_matrix(m, 1.5);
+    fill_matrix(ms, 4);
     print_matrix(m);
-    printf("\n");
     print_matrix(ms);
-    printf("\n");
-    print_matrix(add(m, ms));
-    printf("\n");
-    print_matrix(subtract(m, ms));
-    printf("\n");
-    print_matrix(multiply(m, ms));
-    printf("\n");
-    print_matrix(divide(m, ms));
-    printf("\n");
+    print_matrix(dot(m, ms));
     free_matrix(m);
     free_matrix(ms);
     return 0;

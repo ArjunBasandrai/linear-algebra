@@ -148,3 +148,22 @@ Matrix* divide(Matrix* m1, Matrix* m2) {
     }
     return quotient;
 }
+
+Matrix* dot(Matrix* m1, Matrix* m2) {
+    if (m1->cols != m2->rows) {
+        fprintf(stderr, "ERROR: Cannot dot matrices of sizes (%d, %d) and (%d, %d)\n", m1->rows, m1->cols, m2->rows, m2->cols);
+        exit(EXIT_FAILURE);
+    }
+
+    assert(m1->cols == m2->rows);
+
+    Matrix* product = create_matrix(m1->rows, m2->cols);
+    for (int i = 0; i<m1->rows; i++) {
+        for (int j = 0; j<m2->cols; j++) {
+            for (int k = 0; k<m2->rows; k++) {
+                product->data[i][j] += m1->data[i][k] * m2->data[k][j];
+            }
+        }
+    }
+    return product;
+}
