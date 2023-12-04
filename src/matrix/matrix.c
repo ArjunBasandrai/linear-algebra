@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <math.h>
 #include <stdarg.h>
+#include <float.h>
 
 #include "matrix.h"
 #include "defs.h"
@@ -198,4 +199,20 @@ void initialize_weights(Matrix* matrix, int activation, int n, ...) {
             matrix->data[i][j] = random_uniform(min, max);
         }
     }
+}
+
+int argmax(Matrix *m) {
+    if (m->cols != 1) {
+        fprintf(stderr, "\nERROR: Cannot find argmax of non-vector matrix of size (%d, %d)\n  >> argmax fucntion expects vector of size Mx1\n  >> use reshape function to reshape this matrix to (%d, 1)\n\n", m->rows, m->cols, m->rows * m->cols);
+        exit(EXIT_FAILURE);
+    }
+    double max_val = -DBL_MAX;
+    int max_idx = 0;
+    for (int i = 0; i < m->rows; i++) {
+        if (m->data[i][0] > max_val) {
+            max_val = m->data[i][0];
+            max_idx = i;
+        }
+    }
+    return max_idx;
 }

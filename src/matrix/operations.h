@@ -1,5 +1,6 @@
 #pragma once
 
+#include "defs.h"
 #include "matrix.h"
 
 void mcos(Matrix *m, int in_deg);

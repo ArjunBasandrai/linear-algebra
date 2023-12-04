@@ -19,3 +19,5 @@ Matrix *flatten(Matrix *m, int axis);
 Matrix* reshape(Matrix *m, int rows, int cols);
 
 void initialize_weights(Matrix* matrix, int activation, int n, ...);
+
+int argmax(Matrix *m);
