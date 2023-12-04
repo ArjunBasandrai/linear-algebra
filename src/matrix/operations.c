@@ -92,6 +92,16 @@ Matrix* add(Matrix* m1, Matrix* m2) {
     return sum;
 }
 
+Matrix* add_scalar(Matrix *m1, double n) {
+    Matrix* sum = create_matrix(m1->rows, m1->cols);
+    for (int i=0; i<m1->rows; i++) {
+        for (int j=0; j<m1->cols; j++) {
+            sum->data[i][j] = m1->data[i][j] + n;
+        }
+    }
+    return sum;
+}
+
 Matrix* subtract(Matrix* m1, Matrix* m2) {
     if (m1->rows != m2->rows || m1->cols != m2->cols) {
         fprintf(stderr, "ERROR: Cannot subtract matrices of different sizes (%d, %d) and (%d, %d)\n", m1->rows, m1->cols, m2->rows, m2->cols);
@@ -147,6 +157,16 @@ Matrix* divide(Matrix* m1, Matrix* m2) {
         }
     }
     return quotient;
+}
+
+Matrix* scale(Matrix* m1, double n) {
+    Matrix* product = create_matrix(m1->rows, m1->cols);
+    for (int i=0; i<m1->rows; i++) {
+        for (int j=0; j<m1->cols; j++) {
+            product->data[i][j] = m1->data[i][j] * n;
+        }
+    }
+    return product;
 }
 
 Matrix* dot(Matrix* m1, Matrix* m2) {

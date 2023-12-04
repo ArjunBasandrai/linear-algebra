@@ -13,8 +13,10 @@ void mexp(Matrix *m);
 Matrix* transpose(Matrix *m);
 
 Matrix* add(Matrix *m1, Matrix *m2);
+Matrix* add_scalar(Matrix *m1, double n);
 Matrix* subtract(Matrix *m1, Matrix *m2);
 Matrix* multiply(Matrix *m1, Matrix *m2);
 Matrix* divide(Matrix *m1, Matrix *m2);
+Matrix* scale(Matrix *m1, double n);
 
 Matrix* dot(Matrix *m1, Matrix *m2);
