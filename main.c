@@ -5,7 +5,7 @@
 #include <math.h>
 #include <time.h>
 
-#include "src/linear_algebra.h"
+#include "src/numc.h"
 
 int main() {
     Matrix* m = create_matrix(3,3);

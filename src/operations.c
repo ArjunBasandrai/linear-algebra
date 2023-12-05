@@ -1,4 +1,4 @@
-#include "linear_algebra.h"
+#include "numc.h"
 
 #include <stdio.h>
 #include <stdlib.h>
