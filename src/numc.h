@@ -38,6 +38,8 @@ void initialize_weights(Matrix* matrix, int activation, int n, ...);
 
 int argmax(Matrix *m);
 
+void apply(Matrix *m, double (*func)(double));
+
 void mcos(Matrix *m, int in_deg);
 void msin(Matrix *m, int in_deg);
 void mtan(Matrix *m, int in_deg);

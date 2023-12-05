@@ -215,3 +215,11 @@ int argmax(Matrix *m) {
     }
     return max_idx;
 }
+
+void apply(Matrix *m, double (*func)(double)) {
+    for (int i=0; i<m->rows; i++) {
+        for (int j=0; j<m->cols; j++) {
+            m->data[i][j] = func(m->data[i][j]);
+        }
+    }
+}
