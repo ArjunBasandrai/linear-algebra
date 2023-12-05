@@ -8,20 +8,20 @@ run:
 	./lin.exe
 
 lib_gcc:
-	gcc -c src/matrix/matrix.c
-	gcc -c src/matrix/operations.c
+	gcc -c src/matrix.c
+	gcc -c src/operations.c
 	ar -rc linear_algebra.lib *.o
 	del *.o
 
 lib_clang_64:
-	clang -c src/matrix/matrix.c -o matrix.o -m64
-	clang -c src/matrix/operations.c -o operations.o -m64
+	clang -c src/matrix.c -o matrix.o -m64
+	clang -c src/operations.c -o operations.o -m64
 	llvm-ar rc linear_algebra.lib operations.o matrix.o
 	del *.o
 
 lib_clang_32:
-	clang -c src/matrix/matrix.c -o matrix.o
-	clang -c src/matrix/operations.c -o operations.o
+	clang -c src/matrix.c -o matrix.o
+	clang -c src/operations.c -o operations.o
 	llvm-ar rc linear_algebra.lib operations.o matrix.o
 	del *.o
 
