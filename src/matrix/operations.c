@@ -1,5 +1,4 @@
-#include "operations.h"
-#include "defs.h"
+#include "linear_algebra.h"
 
 #include <stdio.h>
 #include <stdlib.h>

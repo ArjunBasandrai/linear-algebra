@@ -5,9 +5,7 @@
 #include <math.h>
 #include <time.h>
 
-#include "src/matrix/defs.h"
-#include "src/matrix/matrix.h"
-#include "src/matrix/operations.h"
+#include "src/matrix/linear_algebra.h"
 #include "src/nn/activations.h"
 
 int main() {

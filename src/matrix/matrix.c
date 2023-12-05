@@ -7,8 +7,7 @@
 #include <stdarg.h>
 #include <float.h>
 
-#include "matrix.h"
-#include "defs.h"
+#include "linear_algebra.h"
 
 Matrix *create_matrix(int rows, int cols) {
     Matrix *matrix = (Matrix *) malloc(sizeof(Matrix));

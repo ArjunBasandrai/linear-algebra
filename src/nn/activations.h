@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../matrix/matrix.h"
+#include "../matrix/linear_algebra.h"
 
 double sigmoid(double x);
 double swish(double x);
