@@ -128,10 +128,8 @@ Matrix* multiply(Matrix* m1, Matrix* m2) {
 
     Matrix* product = create_matrix(m1->rows, m2->cols);
     for (int i=0; i<m1->rows; i++) {
-        for (int j=0; j<m2->cols; j++) {
-            for (int k=0; k<m1->cols; k++) {
-                product->data[i][j] = m1->data[i][k] * m2->data[k][j];
-            }
+        for (int j=0; j<m1->cols; j++) {
+            product->data[i][j] = m1->data[i][j] * m2->data[i][j];
         }
     }
     return product;
@@ -177,6 +175,7 @@ Matrix* dot(Matrix* m1, Matrix* m2) {
     assert(m1->cols == m2->rows);
 
     Matrix* product = create_matrix(m1->rows, m2->cols);
+    zeros_matrix(product);
     for (int i = 0; i<m1->rows; i++) {
         for (int j = 0; j<m2->cols; j++) {
             for (int k = 0; k<m2->rows; k++) {
